@@ -2,9 +2,13 @@
 
 set -e
 
+if [[ "$PR_NUMBER" == "null" ]]; then
+
 PR_NUMBER=$(jq -r ".pull_request.number" "$GITHUB_EVENT_PATH")
 if [[ "$PR_NUMBER" == "null" ]]; then
 	PR_NUMBER=$(jq -r ".issue.number" "$GITHUB_EVENT_PATH")
+fi
+
 fi
 if [[ "$PR_NUMBER" == "null" ]]; then
 	echo "Failed to determine PR Number."
